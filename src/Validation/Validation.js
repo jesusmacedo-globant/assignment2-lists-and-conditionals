@@ -1,16 +1,10 @@
 import React from 'react';
 
 const Validation = (props) => {
-    let message = null;
-    console.info(props.length);
+    // * improved way of assigning value
+    let message = props.length <= 5 ? 'Text too short!' : 'Text long enough';
 
-    if (props.length < 5) {
-        message = <p>Text too short!</p>;
-    } else {
-        message = <p>Text long enough</p>;
-    }
-
-    return message;
+    return <p className="App-intro">{message}</p>;
 };
 
 export default Validation;

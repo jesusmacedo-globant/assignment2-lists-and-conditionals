@@ -20,7 +20,7 @@ class App extends Component {
     };
 
     handleOnClick = (index) => {
-        let query = [...this.state.query];
+        let query = this.state.query.split('');
         query.splice(index, 1);
 
         this.setState({
@@ -30,24 +30,16 @@ class App extends Component {
     };
 
     render() {
-        let chars = null;
-        const current = [...this.state.query];
-
-        if (this.state.queryLength > 0) {
-            chars = (
-                <ul>
-                    {current.map((char, index) => {
-                        return (
-                            <Char
-                                key={index}
-                                char={char}
-                                onClick={this.handleOnClick.bind(this, index)}
-                            />
-                        );
-                    })}
-                </ul>
+        // * improved way of getting array from string
+        const charsList = this.state.query.split('').map((c, index) => {
+            return (
+                <Char
+                    key={index}
+                    char={c}
+                    onClick={this.handleOnClick.bind(this, index)}
+                />
             );
-        }
+        });
 
         return (
             <div className="App">
@@ -59,11 +51,8 @@ class App extends Component {
                     />
                     <p className="App-title">{this.state.queryLength}</p>
                 </header>
-                <Validation
-                    className="App-intro"
-                    length={this.state.queryLength}
-                />
-                {chars}
+                <Validation length={this.state.queryLength} />
+                {charsList}
             </div>
         );
     }
